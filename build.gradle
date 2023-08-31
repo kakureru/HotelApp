@@ -1,0 +1,39 @@
+buildscript {
+    ext.buildConfig = [
+            'compileSdk': 33,
+            'minSdk'    : 24,
+            'targetSdk' : 33
+    ]
+
+    ext.versions = [
+            'retrofit': '2.9.0',
+            'okhttp': '4.10.0',
+    ]
+
+    ext.deps = [
+            'androidx': [
+                    'appcompat': 'androidx.appcompat:appcompat:1.6.1',
+                    'core': 'androidx.core:core-ktx:1.8.0',
+                    'constraintlayout': 'androidx.constraintlayout:constraintlayout:2.1.4',
+                    'fragment': 'androidx.fragment:fragment-ktx:1.6.1',
+            ],
+            'material': 'com.google.android.material:material:1.5.0',
+            'retrofit': [
+                    'retrofit': "com.squareup.retrofit2:retrofit:${versions.retrofit}",
+                    'gson': "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+            ],
+            'okhttp': [
+                    'okhttp': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    'logginginterceptor': "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
+            ],
+            'koin': 'io.insert-koin:koin-android:3.4.3',
+            'coil': 'io.coil-kt:coil:2.3.0',
+            'cicerone': 'com.github.terrakok:cicerone:7.1',
+    ]
+}
+
+plugins {
+    id 'com.android.application' version '8.0.0' apply false
+    id 'com.android.library' version '8.0.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+}
