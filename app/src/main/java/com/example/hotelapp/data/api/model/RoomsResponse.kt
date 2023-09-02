@@ -10,7 +10,7 @@ class RoomsResponse(
         @SerializedName("name") val name: String? = null,
         @SerializedName("price") val price: Int? = null,
         @SerializedName("price_per") val pricePer: String? = null,
-        @SerializedName("peculiarities") val peculiarities: List<String> = emptyList(),
-        @SerializedName("image_urls") val imageUrls: List<String> = emptyList(),
+        @SerializedName("peculiarities") val peculiarities: List<String>? = null,
+        @SerializedName("image_urls") val imageUrls: List<String>? = null,
     )
 }

@@ -1,7 +1,7 @@
 package com.example.hotelapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.hotelapp.R
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null)
-            router.replaceScreen(Screens.Hotel())
+            router.replaceScreen(Screens.Booking())
     }
 
     override fun onResumeFragments() {

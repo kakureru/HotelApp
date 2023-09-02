@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">HotelApp</string>
+    <string name="booking">Бронирование</string>
+
+    <string name="msg_customer_info">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
+
+    <string name="action_add_tourist">Добавить туриста</string>
+
+    <string name="title_customer_info">Информация о покупателе</string>
+    <string name="title_departure_from">Вылет из</string>
+    <string name="title_county_city">Страна, город</string>
+    <string name="title_dates">Даты</string>
+    <string name="title_nights_count">Кол-во ночей</string>
+    <string name="title_hotel">Отель</string>
+    <string name="title_room">Номер</string>
+    <string name="title_feeding">Питание</string>
+    <string name="title_tour">Тур</string>
+    <string name="title_fuel_charge">Топливный сбор</string>
+    <string name="title_service_charge">Сервисный сбор</string>
+    <string name="title_for_payment">К оплате</string>
+
+    <string name="hint_name">Имя</string>
+    <string name="hint_second_name">Фамилия</string>
+    <string name="hint_birthday_date">Дата рождения</string>
+    <string name="hint_citizenship">Гражданство</string>
+    <string name="hint_passport_number">Номер загранпаспорта</string>
+    <string name="hint_passport_expiration_date">Срок действия загранпаспорта</string>
+    <string name="hint_phone_number">Номер телефона</string>
+    <string name="hint_mail">Почта</string>
 </resources>

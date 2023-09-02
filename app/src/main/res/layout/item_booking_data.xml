@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:contentPadding="16dp"
+    app:strokeWidth="0dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_departure_from" />
+
+            <TextView
+                android:id="@+id/departure_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Санкт-Петербург" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_county_city" />
+
+            <TextView
+                android:id="@+id/country_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Египет, Хургада" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_dates" />
+
+            <TextView
+                android:id="@+id/dates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="19.09.2023 – 27.09.2023" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_nights_count" />
+
+            <TextView
+                android:id="@+id/nights_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="7 ночей" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_hotel" />
+
+            <TextView
+                android:id="@+id/hotel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Steigenberger Makadi" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_room" />
+
+            <TextView
+                android:id="@+id/room"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Стандартный с видом на бассейн или сад" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="8dp">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Secondary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_feeding" />
+
+            <TextView
+                android:id="@+id/nutrition"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="Все включено" />
+        </TableRow>
+    </TableLayout>
+</com.google.android.material.card.MaterialCardView>

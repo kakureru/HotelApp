@@ -1,5 +1,6 @@
 package com.example.hotelapp.di
 
+import com.example.hotelapp.data.api.HotelApiImpl
 import com.example.hotelapp.data.api.HotelApiRetrofit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -10,6 +11,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 private const val BASE_URL = "https://run.mocky.io/v3/" // TODO remove
 
 val networkModule = module {
+
+    single {
+        HotelApiImpl(hotelApiRetrofit = get())
+    }
 
     single<Retrofit> {
         provideRetrofit(okHttpClient = get())
