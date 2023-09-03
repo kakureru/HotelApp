@@ -7,5 +7,5 @@ class BookingPriceDelegateItem(private val value: BookingPriceItem) : DelegateIt
     override fun content(): Any = value
     override fun id(): Int = value.hashCode()
     override fun compareToOther(other: DelegateItem): Boolean =
-        (other as BookingDataDelegateItem).content() == value
+        (other as BookingPriceDelegateItem).content() == value
 }

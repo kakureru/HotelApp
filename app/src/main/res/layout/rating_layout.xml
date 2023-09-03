@@ -2,24 +2,25 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/yellow"
-    app:strokeWidth="0dp"
+    app:cardElevation="0dp"
+    app:contentPaddingBottom="4dp"
     app:contentPaddingLeft="8dp"
     app:contentPaddingRight="8dp"
     app:contentPaddingTop="4dp"
-    app:contentPaddingBottom="4dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    app:strokeWidth="0dp">
 
     <TextView
         android:id="@+id/rating"
-        app:drawableStartCompat="@drawable/ic_star"
-        app:drawableTint="@color/gold"
-        tools:text="5 Превосходно"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gold"
         android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_star"
+        app:drawableTint="@color/gold"
+        tools:text="5 Превосходно" />
 
 </com.google.android.material.card.MaterialCardView>

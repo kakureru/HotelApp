@@ -16,7 +16,9 @@ class TouristExpandedDelegate : AdapterDelegate {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TouristItem) {
-
+            with(binding) {
+                titleTourist.text = item.ordinalName
+            }
         }
     }
 

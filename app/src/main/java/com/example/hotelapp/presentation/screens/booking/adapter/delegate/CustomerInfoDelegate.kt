@@ -14,9 +14,11 @@ class CustomerInfoDelegate : AdapterDelegate {
     inner class CustomerInfoViewHolder(
         private val binding: ItemCustomerInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(item: CustomerInfoItem) {
-
+            with(binding) {
+                etPhone.setText(item.phone)
+                etMail.setText(item.mail)
+            }
         }
     }
 

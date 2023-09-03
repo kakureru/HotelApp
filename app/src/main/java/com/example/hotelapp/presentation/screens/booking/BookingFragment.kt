@@ -15,6 +15,7 @@ import com.example.hotelapp.presentation.screens.booking.adapter.delegate.Bookin
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.CustomerInfoDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.HotelInfoDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.TouristExpandedDelegate
+import com.example.hotelapp.presentation.screens.booking.adapter.delegate.TouristNewDelegate
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,6 +28,7 @@ class BookingFragment : Fragment() {
     private val bookingDataDelegate = BookingDataDelegate()
     private val customerInfoDelegate = CustomerInfoDelegate()
     private val touristExpandedDelegate = TouristExpandedDelegate()
+    private val touristNewDelegate = TouristNewDelegate { vm.onAddTouristClick() }
     private val bookingPriceDelegate = BookingPriceDelegate()
 
     private val adapter = DelegateListAdapter().apply {
@@ -35,6 +37,7 @@ class BookingFragment : Fragment() {
         addDelegate(customerInfoDelegate)
         addDelegate(touristExpandedDelegate)
         addDelegate(bookingPriceDelegate)
+        addDelegate(touristNewDelegate)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
