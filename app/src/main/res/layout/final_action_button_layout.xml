@@ -17,7 +17,6 @@
         android:id="@+id/btn_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
         app:cornerRadius="8dp"
         tools:text="Оплатить 198 036 ₽" />
 </com.google.android.material.card.MaterialCardView>

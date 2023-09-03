@@ -1,6 +1,6 @@
 package com.example.hotelapp.presentation.screens.booking.adapter.item
 
-import com.example.hotelapp.presentation.recyclerview.adapter.DelegateItem
+import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.CustomerInfoItem
 
 class CustomerInfoDelegateItem(private val value: CustomerInfoItem): DelegateItem {

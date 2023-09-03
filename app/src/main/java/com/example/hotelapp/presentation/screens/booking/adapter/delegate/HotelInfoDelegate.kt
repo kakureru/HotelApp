@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelapp.databinding.ItemHotelInfoBinding
-import com.example.hotelapp.presentation.recyclerview.adapter.AdapterDelegate
-import com.example.hotelapp.presentation.recyclerview.adapter.DelegateItem
+import com.example.hotelapp.presentation.recyclerview.delegate.AdapterDelegate
+import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.HotelInfoDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.HotelInfoItem
 

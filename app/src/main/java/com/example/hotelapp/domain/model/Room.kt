@@ -1,6 +1,6 @@
 package com.example.hotelapp.domain.model
 
-class Room(
+data class Room(
     val id: Int,
     val name: String,
     val price: Int,

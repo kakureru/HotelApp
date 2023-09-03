@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.hotelapp.R
 import com.example.hotelapp.databinding.FragmentBookingBinding
 import com.example.hotelapp.presentation.collectFlowSafely
-import com.example.hotelapp.presentation.recyclerview.adapter.DelegateListAdapter
 import com.example.hotelapp.presentation.recyclerview.decorator.MarginItemDecoration
+import com.example.hotelapp.presentation.recyclerview.delegate.DelegateListAdapter
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.BookingDataDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.BookingPriceDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.CustomerInfoDelegate
