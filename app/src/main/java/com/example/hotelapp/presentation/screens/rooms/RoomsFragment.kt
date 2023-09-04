@@ -28,7 +28,7 @@ class RoomsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             listRooms.adapter = roomAdapter
-            listRooms.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.item_margin)))
+            listRooms.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
         }
         vm.uiState.render()
     }

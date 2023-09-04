@@ -17,6 +17,11 @@
         <item name="android:textColor">@color/gray</item>
     </style>
 
+    <style name="TextAppearance.AppCompat.Primary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
     <style name="ThemeOverlay.AppTheme.TextInputLayout.Borderless" parent="">
         <item name="colorControlActivated">?attr/colorOnSurface</item>
         <item name="android:textColorHint">@color/hint</item>

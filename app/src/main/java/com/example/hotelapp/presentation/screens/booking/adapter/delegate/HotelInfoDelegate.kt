@@ -9,11 +9,17 @@ import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.HotelInfoDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.HotelInfoItem
 
-class HotelInfoDelegate : AdapterDelegate {
+class HotelInfoDelegate(
+    private val onAddressClick: () -> Unit,
+) : AdapterDelegate {
 
     inner class HotelInfoViewHolder(
         private val binding: ItemHotelInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.info.address.setOnClickListener { onAddressClick() }
+        }
 
         fun bind(item: HotelInfoItem) {
             with(binding.info) {

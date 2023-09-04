@@ -1,8 +1,10 @@
 package com.example.hotelapp.presentation.screens.booking.adapter.delegate
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hotelapp.R
 import com.example.hotelapp.databinding.ItemBookingPriceBinding
 import com.example.hotelapp.presentation.recyclerview.delegate.AdapterDelegate
 import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
@@ -12,21 +14,23 @@ import com.example.hotelapp.presentation.screens.booking.model.BookingPriceItem
 class BookingPriceDelegate : AdapterDelegate {
 
     inner class BookingPriceViewHolder(
+        private val context: Context,
         private val binding: ItemBookingPriceBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BookingPriceItem) {
             with(binding) {
-                tour.text = item.tour
-                fuelCharge.text = item.fuel
-                serviceCharge.text = item.service
-                total.text = item.total
+                tour.text = context.resources.getString(R.string.ruble_price, item.tour)
+                fuelCharge.text = context.resources.getString(R.string.ruble_price, item.fuel)
+                serviceCharge.text = context.resources.getString(R.string.ruble_price, item.service)
+                total.text = context.resources.getString(R.string.ruble_price, item.total)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         BookingPriceViewHolder(
+            parent.context,
             ItemBookingPriceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 

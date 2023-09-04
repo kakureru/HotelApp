@@ -21,6 +21,7 @@
 
     <TextView
         android:id="@+id/address"
+        android:textColor="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Madinat Makadi, Safaga Road, Makadi Bay, Египет" />

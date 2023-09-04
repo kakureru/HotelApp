@@ -17,63 +17,76 @@
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Secondary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
                 android:text="@string/title_tour" />
 
             <TextView
                 android:id="@+id/tour"
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
                 tools:text="186 600 ₽" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="8dp">
+        <TableRow android:layout_marginTop="@dimen/margin_m">
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Secondary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
                 android:text="@string/title_fuel_charge" />
 
             <TextView
                 android:id="@+id/fuel_charge"
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
                 tools:text="9 300 ₽" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="8dp">
+        <TableRow android:layout_marginTop="@dimen/margin_m">
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Secondary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
                 android:text="@string/title_service_charge" />
 
             <TextView
                 android:id="@+id/service_charge"
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
                 tools:text="2 136 ₽" />
         </TableRow>
 
-        <TableRow android:layout_marginTop="8dp">
+        <TableRow android:layout_marginTop="@dimen/margin_m">
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Secondary"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="@dimen/row_key_weight"
                 android:text="@string/title_for_payment" />
 
             <TextView
                 android:id="@+id/total"
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.AppCompat.Primary"
+                android:layout_width="0dp"
+                android:textColor="?attr/colorPrimary"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_weight="@dimen/row_value_weight"
+                android:gravity="end"
                 tools:text="186 600 ₽" />
         </TableRow>
     </TableLayout>

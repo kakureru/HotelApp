@@ -24,7 +24,7 @@ class BookingFragment : Fragment() {
     private lateinit var binding: FragmentBookingBinding
     private val vm: BookingViewModel by viewModel()
 
-    private val hotelInfoDelegate = HotelInfoDelegate()
+    private val hotelInfoDelegate = HotelInfoDelegate { vm.onAddressClick() }
     private val bookingDataDelegate = BookingDataDelegate()
     private val customerInfoDelegate = CustomerInfoDelegate()
     private val touristExpandedDelegate = TouristExpandedDelegate()
@@ -50,7 +50,7 @@ class BookingFragment : Fragment() {
         with(binding) {
             toolbar.title.text = resources.getString(R.string.booking)
             recycler.adapter = adapter
-            recycler.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.item_margin)))
+            recycler.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
             toolbar.btnBack.setOnClickListener { vm.onBackClick() }
         }
         vm.uiState.render()

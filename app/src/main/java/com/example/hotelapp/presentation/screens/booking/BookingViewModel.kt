@@ -68,4 +68,6 @@ class BookingViewModel(
     fun onBackClick() {
         router.exit()
     }
+
+    fun onAddressClick() = Unit
 }
