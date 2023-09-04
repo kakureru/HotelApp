@@ -14,6 +14,7 @@ import com.example.hotelapp.presentation.screens.booking.adapter.delegate.Bookin
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.BookingPriceDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.CustomerInfoDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.HotelInfoDelegate
+import com.example.hotelapp.presentation.screens.booking.adapter.delegate.TouristCollapsedDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.TouristExpandedDelegate
 import com.example.hotelapp.presentation.screens.booking.adapter.delegate.TouristNewDelegate
 import kotlinx.coroutines.flow.Flow
@@ -24,10 +25,21 @@ class BookingFragment : Fragment() {
     private lateinit var binding: FragmentBookingBinding
     private val vm: BookingViewModel by viewModel()
 
+    private val touristExpandedCallback = object : TouristExpandedDelegate.Callback {
+        override fun onCollapseClick(ordinal: Int) = vm.onCollapseClick(ordinal)
+        override fun onNameTextChanged(ordinal: Int, text: String) = vm.onNameTextChanged(ordinal, text)
+        override fun onSecondNameTextChanged(ordinal: Int, text: String) = vm.onSecondNameTextChanged(ordinal, text)
+        override fun onBirthdayDateTextChanged(ordinal: Int, text: String) = vm.onBirthdayDateTextChanged(ordinal, text)
+        override fun onCitizenshipTextChanged(ordinal: Int, text: String) = vm.onCitizenshipTextChanged(ordinal, text)
+        override fun onPassportNumberTextChanged(ordinal: Int, text: String) = vm.onPassportNumberTextChanged(ordinal, text)
+        override fun onPassportExpirationTextChanged(ordinal: Int, text: String) = vm.onPassportExpirationTextChanged(ordinal, text)
+    }
+
     private val hotelInfoDelegate = HotelInfoDelegate { vm.onAddressClick() }
     private val bookingDataDelegate = BookingDataDelegate()
     private val customerInfoDelegate = CustomerInfoDelegate()
-    private val touristExpandedDelegate = TouristExpandedDelegate()
+    private val touristExpandedDelegate = TouristExpandedDelegate(touristExpandedCallback)
+    private val touristCollapsedDelegate = TouristCollapsedDelegate { ordinal -> vm.onCollapseClick(ordinal) }
     private val touristNewDelegate = TouristNewDelegate { vm.onAddTouristClick() }
     private val bookingPriceDelegate = BookingPriceDelegate()
 
@@ -36,6 +48,7 @@ class BookingFragment : Fragment() {
         addDelegate(bookingDataDelegate)
         addDelegate(customerInfoDelegate)
         addDelegate(touristExpandedDelegate)
+        addDelegate(touristCollapsedDelegate)
         addDelegate(bookingPriceDelegate)
         addDelegate(touristNewDelegate)
     }

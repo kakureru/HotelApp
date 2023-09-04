@@ -1,14 +1,14 @@
 package com.example.hotelapp.presentation.screens.booking
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.hotelapp.domain.HotelRepository
 import com.example.hotelapp.domain.model.Booking
 import com.example.hotelapp.presentation.screens.booking.adapter.item.BookingDataDelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.BookingPriceDelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.CustomerInfoDelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.HotelInfoDelegateItem
-import com.example.hotelapp.presentation.screens.booking.adapter.item.TouristDelegateItem
+import com.example.hotelapp.presentation.screens.booking.adapter.item.TouristCollapsedDelegateItem
+import com.example.hotelapp.presentation.screens.booking.adapter.item.TouristExpandedDelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.TouristNewDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.CustomerInfoItem
 import com.example.hotelapp.presentation.screens.booking.model.TouristItem
@@ -16,54 +16,110 @@ import com.example.hotelapp.presentation.screens.booking.model.toBookingDataItem
 import com.example.hotelapp.presentation.screens.booking.model.toBookingPriceItem
 import com.example.hotelapp.presentation.screens.booking.model.toHotelInfoItem
 import com.github.terrakok.cicerone.Router
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class BookingViewModel(
     private val router: Router,
     private val hotelRepository: HotelRepository,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(BookingUiState())
-    val uiState: StateFlow<BookingUiState> = _uiState.asStateFlow()
+    private val bookingData: Flow<Booking> = flow { emit(hotelRepository.getBooking()) }
+    private val tourists: MutableStateFlow<List<TouristItem>> = MutableStateFlow(listOf(TouristItem(1, "Турист"))) // FIXME init
+    private val customerInfo: MutableStateFlow<CustomerInfoItem> = MutableStateFlow(CustomerInfoItem())
 
-    init {
-        viewModelScope.launch {
-            _uiState.value = BookingUiState(hotelRepository.getBooking().toDelegateList())
+    val uiState: Flow<BookingUiState> = combine(bookingData, tourists, customerInfo) { bookingData, touristItems, customerInfo ->
+        BookingUiState(
+            buildList {
+                add(HotelInfoDelegateItem(bookingData.toHotelInfoItem()))
+                add(BookingDataDelegateItem(bookingData.toBookingDataItem()))
+                add(CustomerInfoDelegateItem(customerInfo))
+                touristItems.forEach {
+                    add(
+                        if (it.isExpanded) TouristExpandedDelegateItem(it)
+                        else TouristCollapsedDelegateItem(it)
+                    )
+                }
+                add(TouristNewDelegateItem())
+                add(BookingPriceDelegateItem(bookingData.toBookingPriceItem()))
+            }
+        )
+    }
+
+    fun onCollapseClick(ordinal: Int) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(isExpanded = !tourist.isExpanded)
+                else tourist
+            }
         }
     }
 
-    fun onExpandClick() {
-
+    fun onNameTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(name = text)
+                else tourist
+            }
+        }
     }
 
-    fun onCollapseClick() {
+    fun onSecondNameTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(secondName = text)
+                else tourist
+            }
+        }
+    }
 
+    fun onBirthdayDateTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(birthdayDate = text)
+                else tourist
+            }
+        }
+    }
+
+    fun onCitizenshipTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(citizenship = text)
+                else tourist
+            }
+        }
+    }
+
+    fun onPassportNumberTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(passportNumber = text)
+                else tourist
+            }
+        }
+    }
+
+    fun onPassportExpirationTextChanged(ordinal: Int, text: String) {
+        tourists.update { tourists ->
+            tourists.map {  tourist ->
+                if (tourist.ordinal == ordinal) tourist.copy(passportExpirationDate = text)
+                else tourist
+            }
+        }
     }
 
     fun onAddTouristClick() {
-        _uiState.update { state ->
-            state.copy(data = buildList {
-                state.data.forEach {
-                    if (it is TouristNewDelegateItem)
-                        add(TouristDelegateItem(TouristItem("Турист 2")))
-                    add(it)
-                }
-            })
-        }
+        tourists.update { it.addNewTourist() }
     }
 
-    private fun Booking.toDelegateList() = listOf(
-        HotelInfoDelegateItem(this.toHotelInfoItem()),
-        BookingDataDelegateItem(this.toBookingDataItem()),
-        CustomerInfoDelegateItem(CustomerInfoItem()),
-        TouristDelegateItem(TouristItem("Турист")),
-        TouristNewDelegateItem(),
-        BookingPriceDelegateItem(this.toBookingPriceItem()),
-    )
+    private fun List<TouristItem>.addNewTourist(): List<TouristItem> = buildList {
+        val newTourist = TouristItem(ordinal = this@addNewTourist.size + 1, ordinalName = "Турист")
+        addAll(this@addNewTourist + newTourist)
+    }
 
     fun onBackClick() {
         router.exit()

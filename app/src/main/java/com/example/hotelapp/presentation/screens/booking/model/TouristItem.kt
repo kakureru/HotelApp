@@ -1,6 +1,7 @@
 package com.example.hotelapp.presentation.screens.booking.model
 
-class TouristItem(
+data class TouristItem(
+    val ordinal: Int,
     val ordinalName: String,
     val name: String = "",
     val secondName: String = "",
@@ -8,4 +9,5 @@ class TouristItem(
     val citizenship: String = "",
     val passportNumber: String = "",
     val passportExpirationDate: String = "",
+    val isExpanded: Boolean = true,
 )
