@@ -1,4 +1,4 @@
-package com.example.hotelapp.presentation.recyclerview
+package com.example.hotelapp.presentation.utils.recyclerview
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper

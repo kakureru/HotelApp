@@ -23,14 +23,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
+import com.example.hotelapp.presentation.utils.RussianFirstHundredOrdinalSpelling as Ros
 
 class BookingViewModel(
     private val router: Router,
     private val hotelRepository: HotelRepository,
 ) : ViewModel() {
 
+    private val initTourist = TouristItem(1, Ros.getSpelling(1).capitalize())
+
     private val customerInnerState = MutableStateFlow(CustomerInfoItem())
-    private val touristsInnerState = MutableStateFlow(listOf(TouristItem(1, "Турист"))) // FIXME init
+    private val touristsInnerState = MutableStateFlow(listOf(initTourist))
 
     private val bookingData = flow { emit(hotelRepository.getBooking()) }
     private val tourists = MutableStateFlow(touristsInnerState.value)
@@ -138,7 +141,11 @@ class BookingViewModel(
     }
 
     private fun List<TouristItem>.addNewTourist(): List<TouristItem> = buildList {
-        val newTourist = TouristItem(ordinal = this@addNewTourist.size + 1, ordinalName = "Турист") // FIXME
+        val newOrdinal = this@addNewTourist.size + 1
+        val newTourist = TouristItem(
+            ordinal = newOrdinal,
+            ordinalName = Ros.getSpelling(newOrdinal).capitalize()
+        )
         addAll(this@addNewTourist + newTourist)
     }
 
@@ -174,6 +181,8 @@ class BookingViewModel(
         refreshTourists()
         refreshCustomer()
     }
+
+    private fun String.capitalize() = this.replaceFirstChar { it.uppercase() }
 
     private fun refreshTourists() { tourists.value = touristsInnerState.value }
     private fun refreshCustomer() { customer.value = customerInnerState.value }

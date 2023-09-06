@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.hotelapp.R
 import com.example.hotelapp.databinding.FragmentRoomsBinding
 import com.example.hotelapp.presentation.collectFlowSafely
-import com.example.hotelapp.presentation.recyclerview.decorator.MarginItemDecoration
+import com.example.hotelapp.presentation.utils.recyclerview.decorator.MarginItemDecoration
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

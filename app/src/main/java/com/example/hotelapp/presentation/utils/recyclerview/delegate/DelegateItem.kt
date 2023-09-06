@@ -1,4 +1,4 @@
-package com.example.hotelapp.presentation.recyclerview.delegate
+package com.example.hotelapp.presentation.utils.recyclerview.delegate
 
 interface DelegateItem {
     fun content(): Any

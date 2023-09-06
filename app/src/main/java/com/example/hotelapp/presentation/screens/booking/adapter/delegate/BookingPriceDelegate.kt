@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelapp.R
 import com.example.hotelapp.databinding.ItemBookingPriceBinding
-import com.example.hotelapp.presentation.recyclerview.delegate.AdapterDelegate
-import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
+import com.example.hotelapp.presentation.utils.recyclerview.delegate.AdapterDelegate
+import com.example.hotelapp.presentation.utils.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.BookingPriceDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.BookingPriceItem
 

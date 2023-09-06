@@ -4,6 +4,7 @@
     <string name="more_about_room">Подробнее о номере</string>
     <string name="ruble_price">%1$s ₽</string>
     <string name="pay_price">Оплатить %1$s ₽</string>
+    <string name="tourist_ordinal">%1$s турист</string>
 
     <string name="msg_customer_info">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
     

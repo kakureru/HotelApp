@@ -1,4 +1,4 @@
-package com.example.hotelapp.presentation.recyclerview.decorator
+package com.example.hotelapp.presentation.utils.recyclerview.decorator
 
 import android.content.res.Resources
 import android.graphics.Canvas

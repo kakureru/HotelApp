@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.PagerSnapHelper
+import com.example.hotelapp.R
 import com.example.hotelapp.databinding.FragmentHotelBinding
-import com.example.hotelapp.presentation.recyclerview.OnSnapPositionChangeListener
-import com.example.hotelapp.presentation.recyclerview.SnapOnScrollListener
-import com.example.hotelapp.presentation.recyclerview.attachSnapHelperWithListener
-import com.example.hotelapp.presentation.recyclerview.decorator.CirclePagerIndicatorDecoration
-import com.example.hotelapp.presentation.recyclerview.decorator.MarginItemDecoration
+import com.example.hotelapp.presentation.utils.recyclerview.OnSnapPositionChangeListener
+import com.example.hotelapp.presentation.utils.recyclerview.SnapOnScrollListener
+import com.example.hotelapp.presentation.utils.recyclerview.attachSnapHelperWithListener
+import com.example.hotelapp.presentation.utils.recyclerview.decorator.CirclePagerIndicatorDecoration
+import com.example.hotelapp.presentation.utils.recyclerview.decorator.MarginItemDecoration
 
 class HotelFragment : Fragment() {
 
@@ -36,7 +37,7 @@ class HotelFragment : Fragment() {
                     onSnapPositionChangeListener = onSnapPositionChangeListener,
                 )
                 addItemDecoration(CirclePagerIndicatorDecoration())
-                addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(com.example.hotelapp.R.dimen.margin_m)))
+                addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_m)))
             }
         }
     }

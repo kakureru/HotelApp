@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelapp.R
 import com.example.hotelapp.databinding.ItemRoomBinding
 import com.example.hotelapp.domain.model.Room
-import com.example.hotelapp.presentation.recyclerview.OnSnapPositionChangeListener
-import com.example.hotelapp.presentation.recyclerview.PhotoAdapter
-import com.example.hotelapp.presentation.recyclerview.SnapOnScrollListener
-import com.example.hotelapp.presentation.recyclerview.attachSnapHelperWithListener
-import com.example.hotelapp.presentation.recyclerview.decorator.CirclePagerIndicatorDecoration
-import com.example.hotelapp.presentation.recyclerview.decorator.MarginItemDecoration
+import com.example.hotelapp.presentation.utils.recyclerview.OnSnapPositionChangeListener
+import com.example.hotelapp.presentation.utils.recyclerview.PhotoAdapter
+import com.example.hotelapp.presentation.utils.recyclerview.SnapOnScrollListener
+import com.example.hotelapp.presentation.utils.recyclerview.attachSnapHelperWithListener
+import com.example.hotelapp.presentation.utils.recyclerview.decorator.CirclePagerIndicatorDecoration
+import com.example.hotelapp.presentation.utils.recyclerview.decorator.MarginItemDecoration
 
 /**
  * Плохой код
