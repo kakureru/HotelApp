@@ -33,6 +33,8 @@
                 android:id="@+id/et_phone"
                 style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
                 android:layout_width="match_parent"
+                android:digits="0123456789+"
+                android:inputType="phone"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,6 +49,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_mail"
+                android:inputType="textEmailAddress"
                 style="@style/ThemeOverlay.AppTheme.TextInputEditText.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

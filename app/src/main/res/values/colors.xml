@@ -11,4 +11,5 @@
     <color name="blue">#0D72FF</color>
     <color name="blue_light">#e7f1ff</color>
     <color name="yellow">#33FFC700</color>
+    <color name="error">#26EB5757</color>
 </resources>

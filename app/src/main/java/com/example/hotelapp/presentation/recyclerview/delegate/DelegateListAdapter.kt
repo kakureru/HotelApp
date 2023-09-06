@@ -19,6 +19,10 @@ class DelegateListAdapter : ListAdapter<DelegateItem, RecyclerView.ViewHolder>(D
         delegates.add(delegate)
     }
 
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id().toLong()
+    }
+
     override fun getItemViewType(position: Int): Int =
         delegates.indexOfFirst { it.isOfViewType(currentList[position]) }
 

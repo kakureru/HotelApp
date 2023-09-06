@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hotelapp.R
 import com.example.hotelapp.databinding.ItemRoomBinding
 import com.example.hotelapp.domain.model.Room
 import com.example.hotelapp.presentation.recyclerview.OnSnapPositionChangeListener
@@ -13,6 +14,7 @@ import com.example.hotelapp.presentation.recyclerview.PhotoAdapter
 import com.example.hotelapp.presentation.recyclerview.SnapOnScrollListener
 import com.example.hotelapp.presentation.recyclerview.attachSnapHelperWithListener
 import com.example.hotelapp.presentation.recyclerview.decorator.CirclePagerIndicatorDecoration
+import com.example.hotelapp.presentation.recyclerview.decorator.MarginItemDecoration
 
 /**
  * Плохой код
@@ -22,7 +24,7 @@ class RoomAdapter(
     private val onChooseRoomClick: (roomId: Int) -> Unit,
 ) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(DiffCallback) {
 
-    private val onSnapPositionChangeListener = object : OnSnapPositionChangeListener {
+    private val onSnapPositionChangeListener = object : OnSnapPositionChangeListener { // FIXME useless
         override fun onSnapPositionChange(position: Int) = Unit
     }
 
@@ -43,12 +45,13 @@ class RoomAdapter(
                 photoAdapter.submitList(item.imageUrls)
             }
             binding.photoCarousel.listPhoto.apply {
-                this.attachSnapHelperWithListener(
+                attachSnapHelperWithListener(
                     snapHelper = PagerSnapHelper(),
                     behavior = SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
                     onSnapPositionChangeListener = onSnapPositionChangeListener,
                 )
-                this.addItemDecoration(CirclePagerIndicatorDecoration())
+                addItemDecoration(CirclePagerIndicatorDecoration())
+                addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_m)))
             }
         }
     }

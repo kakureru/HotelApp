@@ -28,7 +28,7 @@ class CirclePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(c, parent, state)
-        val itemCount = parent.adapter!!.itemCount
+        val itemCount = parent.adapter?.itemCount ?: 0
 
         // center horizontally, calculate width and subtract half from center
         val totalLength = mIndicatorItemLength * itemCount

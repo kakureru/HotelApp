@@ -3,7 +3,8 @@
     <string name="booking">Бронирование</string>
     <string name="more_about_room">Подробнее о номере</string>
     <string name="ruble_price">%1$s ₽</string>
-    
+    <string name="pay_price">Оплатить %1$s ₽</string>
+
     <string name="msg_customer_info">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
     
     <string name="action_choose_room">Выбрать номер</string>
@@ -30,4 +31,6 @@
     <string name="hint_passport_expiration_date">Срок действия загранпаспорта</string>
     <string name="hint_phone_number">Номер телефона</string>
     <string name="hint_mail">Почта</string>
+    <string name="hotel">Отель</string>
+    <string name="about_hotel">Об отеле</string>
 </resources>

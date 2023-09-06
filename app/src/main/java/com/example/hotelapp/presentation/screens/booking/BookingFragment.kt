@@ -20,6 +20,7 @@ import com.example.hotelapp.presentation.screens.booking.adapter.delegate.Touris
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class BookingFragment : Fragment() {
 
     private lateinit var binding: FragmentBookingBinding
@@ -51,6 +52,7 @@ class BookingFragment : Fragment() {
         addDelegate(touristCollapsedDelegate)
         addDelegate(bookingPriceDelegate)
         addDelegate(touristNewDelegate)
+        setHasStableIds(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -65,12 +67,14 @@ class BookingFragment : Fragment() {
             recycler.adapter = adapter
             recycler.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
             toolbar.btnBack.setOnClickListener { vm.onBackClick() }
+            actionButtonLayout.btnAction.setOnClickListener { vm.onPurchaseClick() }
         }
         vm.uiState.render()
     }
 
     private fun BookingUiState.render() {
         adapter.submitList(data)
+        binding.actionButtonLayout.btnAction.text = context?.resources?.getString(R.string.pay_price, totalCharge)
     }
 
     private fun Flow<BookingUiState>.render() {

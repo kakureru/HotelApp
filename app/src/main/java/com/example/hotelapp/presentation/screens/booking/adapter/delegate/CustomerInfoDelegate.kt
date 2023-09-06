@@ -8,6 +8,7 @@ import com.example.hotelapp.presentation.recyclerview.delegate.AdapterDelegate
 import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.CustomerInfoDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.CustomerInfoItem
+import com.example.hotelapp.presentation.screens.booking.model.bindState
 
 class CustomerInfoDelegate : AdapterDelegate {
 
@@ -16,8 +17,8 @@ class CustomerInfoDelegate : AdapterDelegate {
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: CustomerInfoItem) {
             with(binding) {
-                etPhone.setText(item.phone)
-                etMail.setText(item.mail)
+                etPhone.bindState(item.phone)
+                etMail.bindState(item.mail)
             }
         }
     }

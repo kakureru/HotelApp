@@ -1,5 +1,6 @@
 package com.example.hotelapp.presentation.screens.booking.adapter.delegate
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -9,6 +10,7 @@ import com.example.hotelapp.presentation.recyclerview.delegate.AdapterDelegate
 import com.example.hotelapp.presentation.recyclerview.delegate.DelegateItem
 import com.example.hotelapp.presentation.screens.booking.adapter.item.TouristExpandedDelegateItem
 import com.example.hotelapp.presentation.screens.booking.model.TouristItem
+import com.example.hotelapp.presentation.screens.booking.model.bindState
 
 class TouristExpandedDelegate(
     private val callback: Callback,
@@ -25,25 +27,36 @@ class TouristExpandedDelegate(
     }
 
     inner class TouristViewHolder(
+        private val context: Context,
         private val binding: ItemTouristExpandedBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TouristItem) {
             with(binding) {
                 titleTourist.text = item.ordinalName
-                btnCollapse.setOnClickListener { callback.onCollapseClick(item.ordinal) }
+
+                etName.bindState(item.name)
+                etSecondName.bindState(item.secondName)
+                etBirthdayDate.bindState(item.birthdayDate)
+                etCitizenship.bindState(item.citizenship)
+                etPassportNumber.bindState(item.passportNumber)
+                etPassportExpirationDate.bindState(item.passportExpirationDate)
+
                 etName.addTextChangedListener { callback.onNameTextChanged(item.ordinal, "${etName.text}") }
                 etSecondName.addTextChangedListener { callback.onSecondNameTextChanged(item.ordinal, "${etSecondName.text}") }
                 etBirthdayDate.addTextChangedListener { callback.onBirthdayDateTextChanged(item.ordinal, "${etBirthdayDate.text}") }
                 etCitizenship.addTextChangedListener { callback.onCitizenshipTextChanged(item.ordinal, "${etCitizenship.text}") }
                 etPassportNumber.addTextChangedListener { callback.onPassportNumberTextChanged(item.ordinal, "${etPassportNumber.text}") }
                 etPassportExpirationDate.addTextChangedListener { callback.onPassportExpirationTextChanged(item.ordinal, "${etPassportExpirationDate.text}") }
+
+                btnCollapse.setOnClickListener { callback.onCollapseClick(item.ordinal) }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         TouristViewHolder(
+            parent.context,
             ItemTouristExpandedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 

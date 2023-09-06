@@ -5,7 +5,7 @@ import com.example.hotelapp.presentation.screens.booking.model.CustomerInfoItem
 
 class CustomerInfoDelegateItem(private val value: CustomerInfoItem): DelegateItem {
     override fun content(): Any = value
-    override fun id(): Int = value.hashCode()
+    override fun id(): Int = -3
     override fun compareToOther(other: DelegateItem): Boolean =
         (other as CustomerInfoDelegateItem).content() == value
 }
