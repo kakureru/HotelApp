@@ -1,28 +1,42 @@
 package com.example.hotelapp.di
 
-import com.example.hotelapp.data.repository.HotelRepositoryImpl
-import com.example.hotelapp.presentation.screens.booking.BookingViewModel
-import com.example.hotelapp.presentation.screens.hotel.HotelViewModel
-import com.example.hotelapp.presentation.screens.rooms.RoomsViewModel
-import com.example.hotelapp.presentation.screens.success.SuccessViewModel
+import com.example.booking.data.repository.BookingRepositoryImpl
+import com.example.booking.presentation.BookingViewModel
+import com.example.hotel.data.HotelRepositoryImpl
+import com.example.hotel.presentation.HotelViewModel
+import com.example.hotelapp.navigation.BookingNavigationImpl
+import com.example.hotelapp.navigation.HotelNavigationImpl
+import com.example.hotelapp.navigation.RoomsNavigationImpl
+import com.example.payment.presentation.PaymentViewModel
+import com.example.rooms.data.repository.RoomsRepositoryImpl
+import com.example.rooms.presentation.RoomsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
     viewModel {
-        BookingViewModel(router = get(), hotelRepository = get<HotelRepositoryImpl>())
+        BookingViewModel(
+            bookingNavigation = get<BookingNavigationImpl>(),
+            bookingRepository = get<BookingRepositoryImpl>()
+        )
     }
 
     viewModel {
-        HotelViewModel(router = get(), hotelRepository = get<HotelRepositoryImpl>())
+        HotelViewModel(
+            hotelNavigation = get<HotelNavigationImpl>(),
+            hotelRepository = get<HotelRepositoryImpl>()
+        )
     }
 
     viewModel {
-        RoomsViewModel(router = get(), hotelRepository = get<HotelRepositoryImpl>())
+        RoomsViewModel(
+            roomsNavigation = get<RoomsNavigationImpl>(),
+            roomsRepository = get<RoomsRepositoryImpl>()
+        )
     }
 
     viewModel {
-        SuccessViewModel(router = get())
+        PaymentViewModel(router = get())
     }
 }

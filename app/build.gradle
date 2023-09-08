@@ -5,16 +5,14 @@ plugins {
 
 android {
     namespace 'com.example.hotelapp'
-    compileSdk 33
+    compileSdk buildConfig.compileSdk
 
     defaultConfig {
         applicationId "com.example.hotelapp"
-        minSdk 24
-        targetSdk 33
+        minSdk buildConfig.minSdk
+        targetSdk buildConfig.targetSdk
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -36,6 +34,12 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':hotel')
+    implementation project(path: ':rooms')
+    implementation project(path: ':booking')
+    implementation project(path: ':payment')
+    implementation project(path: ':core')
+
     implementation deps.androidx.core
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraintlayout

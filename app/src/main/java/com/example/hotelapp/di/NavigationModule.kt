@@ -1,10 +1,25 @@
 package com.example.hotelapp.di
 
+import com.example.hotelapp.navigation.BookingNavigationImpl
+import com.example.hotelapp.navigation.HotelNavigationImpl
+import com.example.hotelapp.navigation.RoomsNavigationImpl
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 import org.koin.dsl.module
 
 val navigationModule = module {
+
+    factory {
+        HotelNavigationImpl(router = get())
+    }
+
+    factory {
+        RoomsNavigationImpl(router = get())
+    }
+
+    factory {
+        BookingNavigationImpl(router = get())
+    }
 
     single {
         Cicerone.create()

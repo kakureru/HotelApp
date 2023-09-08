@@ -1,7 +1,11 @@
 package com.example.hotelapp.di
 
-import com.example.hotelapp.data.api.HotelApiImpl
-import com.example.hotelapp.data.api.HotelApiRetrofit
+import com.example.booking.data.api.BookingApiImpl
+import com.example.booking.data.api.BookingApiRetrofit
+import com.example.hotel.data.api.HotelApiImpl
+import com.example.hotel.data.api.HotelApiRetrofit
+import com.example.rooms.data.api.RoomsApiImpl
+import com.example.rooms.data.api.RoomsApiRetrofit
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -13,7 +17,27 @@ private const val BASE_URL = "https://run.mocky.io/v3/" // TODO remove
 val networkModule = module {
 
     single {
+        RoomsApiImpl(roomsApiRetrofit = get())
+    }
+
+    single {
         HotelApiImpl(hotelApiRetrofit = get())
+    }
+
+    single {
+        BookingApiImpl(bookingApiRetrofit = get())
+    }
+
+    single {
+        provideRoomsApiRetrofit(retrofit = get())
+    }
+
+    single {
+        provideHotelApiRetrofit(retrofit = get())
+    }
+
+    single {
+        provideBookingApiRetrofit(retrofit = get())
     }
 
     single<Retrofit> {
@@ -29,13 +53,11 @@ val networkModule = module {
             this.level = HttpLoggingInterceptor.Level.BODY
         }
     }
-
-    single {
-        provideHotelApiRetrofit(retrofit = get())
-    }
 }
 
+private fun provideRoomsApiRetrofit(retrofit: Retrofit) = retrofit.create(RoomsApiRetrofit::class.java)
 private fun provideHotelApiRetrofit(retrofit: Retrofit) = retrofit.create(HotelApiRetrofit::class.java)
+private fun provideBookingApiRetrofit(retrofit: Retrofit) = retrofit.create(BookingApiRetrofit::class.java)
 
 private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit
     .Builder()

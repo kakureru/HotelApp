@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.H5">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Secondary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TextAppearance.AppCompat.Primary" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputLayout.Borderless" parent="">
+        <item name="colorControlActivated">?attr/colorOnSurface</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="ThemeOverlay.AppTheme.TextInputEditText.Borderless" parent="">
+        <item name="android:textSize">17sp</item>
+        <item name="android:background">@drawable/bg_rounded_edittext</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.RoundedCorners" parent="">
+        <item name="cornerSize">5%</item>
+    </style>
+
+</resources>
