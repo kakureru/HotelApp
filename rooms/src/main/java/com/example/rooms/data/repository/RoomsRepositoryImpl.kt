@@ -9,7 +9,7 @@ class RoomsRepositoryImpl(
     private val roomsApi: RoomsApi,
 ) : RoomsRepository {
 
-    override suspend fun getHotelRooms(): List<Room> = roomsApi.getRooms().rooms.map { it.toDomain() }
+    override suspend fun getHotelRooms(hotelId: Int): List<Room> = roomsApi.getRooms().rooms.map { it.toDomain() }
 
     private fun RoomsResponse.RoomDto.toDomain() = Room(
         id = id ?: 0,

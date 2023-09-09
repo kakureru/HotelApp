@@ -1,5 +1,5 @@
 package com.example.hotel.presentation.navigation
 
 interface HotelNavigation {
-    fun navigateToRooms()
+    fun navigateToRooms(hotelId: Int)
 }

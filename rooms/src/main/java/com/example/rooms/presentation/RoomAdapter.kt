@@ -1,5 +1,6 @@
 package com.example.rooms.presentation
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,65 +8,66 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.core.R
-import com.example.core.recyclerview.OnSnapPositionChangeListener
+import com.example.core.recyclerview.PeculiarityAdapter
 import com.example.core.recyclerview.PhotoAdapter
-import com.example.core.recyclerview.SnapOnScrollListener
-import com.example.core.recyclerview.attachSnapHelperWithListener
 import com.example.core.recyclerview.decorator.CirclePagerIndicatorDecoration
-import com.example.core.recyclerview.decorator.MarginItemDecoration
+import com.example.core.recyclerview.decorator.HorizontalMarginItemDecoration
 import com.example.rooms.databinding.ItemRoomBinding
-import com.example.rooms.domain.model.Room
-
-/**
- * Плохой код
- */
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
 
 class RoomAdapter(
     private val onChooseRoomClick: (roomId: Int) -> Unit,
-) : ListAdapter<Room, RoomAdapter.RoomViewHolder>(DiffCallback) {
+) : ListAdapter<RoomItem, RoomAdapter.RoomViewHolder>(DiffCallback) {
 
-    private val onSnapPositionChangeListener = object : OnSnapPositionChangeListener { // FIXME useless
-        override fun onSnapPositionChange(position: Int) = Unit
-    }
+    inner class RoomViewHolder(
+        private val context: Context,
+        private val binding: ItemRoomBinding
+        ) : RecyclerView.ViewHolder(binding.root) {
 
-    inner class RoomViewHolder(private val binding: ItemRoomBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val photoAdapter = PhotoAdapter()
+        private val peculiarityAdapter = PeculiarityAdapter()
 
         init {
-            binding.btnAction.setOnClickListener { onChooseRoomClick(getItem(adapterPosition).id) }
+            with(binding) {
+                photoCarousel.listPhoto.adapter = photoAdapter
+                listPeculiarities.apply {
+                    adapter = peculiarityAdapter
+                    layoutManager = FlexboxLayoutManager(context).apply { FlexDirection.ROW; setHasFixedSize(true) }
+                }
+                photoCarousel.listPhoto.apply {
+                    PagerSnapHelper().attachToRecyclerView(this)
+                    addItemDecoration(CirclePagerIndicatorDecoration())
+                    addItemDecoration(HorizontalMarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_m)))
+                }
+                btnAction.setOnClickListener { onChooseRoomClick(getItem(adapterPosition).id) }
+            }
         }
 
-        fun bind(item: Room) {
+        fun bind(item: RoomItem) {
             with(binding) {
                 roomTitle.text = item.name
-                price.text = item.price.toString()
+                price.text = context.resources.getString(R.string.ruble_price, item.price)
                 pricePer.text = item.pricePer
-
-                val photoAdapter = PhotoAdapter()
-                photoCarousel.listPhoto.adapter = photoAdapter
                 photoAdapter.submitList(item.imageUrls)
-            }
-            binding.photoCarousel.listPhoto.apply {
-                attachSnapHelperWithListener(
-                    snapHelper = PagerSnapHelper(),
-                    behavior = SnapOnScrollListener.Behavior.NOTIFY_ON_SCROLL_STATE_IDLE,
-                    onSnapPositionChangeListener = onSnapPositionChangeListener,
-                )
-                addItemDecoration(CirclePagerIndicatorDecoration())
-                addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_m)))
+                peculiarityAdapter.submitList(item.peculiarities)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder =
-        RoomViewHolder(ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        RoomViewHolder(
+            parent.context,
+            ItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) =
         holder.bind(getItem(position))
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Room>() {
-            override fun areItemsTheSame(oldItem: Room, newItem: Room) = oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Room, newItem: Room) = oldItem == newItem
+        private val DiffCallback = object : DiffUtil.ItemCallback<RoomItem>() {
+            override fun areItemsTheSame(oldItem: RoomItem, newItem: RoomItem) = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: RoomItem, newItem: RoomItem) = oldItem == newItem
         }
     }
 }

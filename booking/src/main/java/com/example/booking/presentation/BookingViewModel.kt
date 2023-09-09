@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.update
 import com.example.core.RussianFirstHundredOrdinalSpelling as Ros
 
 class BookingViewModel(
+    private val roomId: Int,
     private val bookingNavigation: BookingNavigation,
     private val bookingRepository: BookingRepository,
 ) : ViewModel() {
@@ -35,7 +36,7 @@ class BookingViewModel(
     private val customerInnerState = MutableStateFlow(CustomerInfoItem())
     private val touristsInnerState = MutableStateFlow(listOf(initTourist))
 
-    private val bookingData = flow { emit(bookingRepository.getBooking()) }
+    private val bookingData = flow { emit(bookingRepository.getBooking(roomId)) }
     private val tourists = MutableStateFlow(touristsInnerState.value)
     private val customer = MutableStateFlow(customerInnerState.value)
 

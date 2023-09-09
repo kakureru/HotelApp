@@ -16,15 +16,20 @@ import com.example.booking.presentation.adapter.delegate.TouristExpandedDelegate
 import com.example.booking.presentation.adapter.delegate.TouristNewDelegate
 import com.example.core.R
 import com.example.core.collectFlowSafely
-import com.example.core.recyclerview.decorator.MarginItemDecoration
+import com.example.core.recyclerview.decorator.VerticalMarginItemDecoration
 import com.example.core.recyclerview.delegate.DelegateListAdapter
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class BookingFragment : Fragment() {
 
+    private val roomId: Int by lazy {
+        arguments?.getInt(ARG_ROOM_ID, -1)?.takeIf { it >= 0 } ?: throw IllegalArgumentException()
+    }
+
     private lateinit var binding: FragmentBookingBinding
-    private val vm: BookingViewModel by viewModel()
+    private val vm: BookingViewModel by viewModel { parametersOf(roomId) }
 
     private val touristExpandedCallback = object : TouristExpandedDelegate.Callback {
         override fun onCollapseClick(ordinal: Int) = vm.onCollapseClick(ordinal)
@@ -65,7 +70,7 @@ class BookingFragment : Fragment() {
         with(binding) {
             toolbar.title.text = resources.getString(R.string.booking)
             recycler.adapter = adapter
-            recycler.addItemDecoration(MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
+            recycler.addItemDecoration(VerticalMarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
             toolbar.btnBack.setOnClickListener { vm.onBackClick() }
             actionButtonLayout.btnAction.setOnClickListener { vm.onPurchaseClick() }
         }

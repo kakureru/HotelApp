@@ -4,9 +4,7 @@ import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Rect
 import android.graphics.RectF
-import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +14,7 @@ class CirclePagerIndicatorDecoration() : RecyclerView.ItemDecoration() {
 
     private val colorActive = Color.BLACK
     private val colorDotsBg = Color.WHITE
-    private val mIndicatorHeight = (DP * 32).toInt()
+    private val mIndicatorHeight = (DP * 8).toInt()
     private val mIndicatorStrokeWidth = DP * 4
     private val mIndicatorItemLength = DP * 3
     private val mIndicatorItemPadding = DP * 8
@@ -133,16 +131,6 @@ class CirclePagerIndicatorDecoration() : RecyclerView.ItemDecoration() {
         }
         val radius = DP * 5f
         c.drawRoundRect(rect, radius, radius, paint)
-    }
-
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = mIndicatorHeight
     }
 
     companion object {

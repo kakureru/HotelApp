@@ -17,6 +17,7 @@ val appModule = module {
 
     viewModel {
         BookingViewModel(
+            roomId = it.get(),
             bookingNavigation = get<BookingNavigationImpl>(),
             bookingRepository = get<BookingRepositoryImpl>()
         )
@@ -31,8 +32,10 @@ val appModule = module {
 
     viewModel {
         RoomsViewModel(
+            hotelId = it.get(),
             roomsNavigation = get<RoomsNavigationImpl>(),
-            roomsRepository = get<RoomsRepositoryImpl>()
+            roomsRepository = get<RoomsRepositoryImpl>(),
+            hotelRepository = get<HotelRepositoryImpl>(),
         )
     }
 

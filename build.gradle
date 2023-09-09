@@ -27,6 +27,7 @@ buildscript {
                     'okhttp': "com.squareup.okhttp3:okhttp:${versions.okhttp}",
                     'logginginterceptor': "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}",
             ],
+            'flexbox': 'com.google.android.flexbox:flexbox:3.0.0',
             'koin': 'io.insert-koin:koin-android:3.4.3',
             'coil': 'io.coil-kt:coil:2.3.0',
             'cicerone': 'com.github.terrakok:cicerone:7.1',

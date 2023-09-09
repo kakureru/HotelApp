@@ -4,5 +4,5 @@ import com.example.rooms.domain.model.Room
 
 interface RoomsRepository {
 
-    suspend fun getHotelRooms(): List<Room>
+    suspend fun getHotelRooms(hotelId: Int): List<Room>
 }

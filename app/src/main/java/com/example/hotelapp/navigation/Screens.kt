@@ -16,8 +16,8 @@ object Screens {
         HotelFragment()
     }
 
-    fun Rooms() = FragmentScreen {
-        RoomsFragment()
+    fun Rooms(hotelId: Int) = FragmentScreen {
+        RoomsFragment.newInstance(hotelId)
     }
 
     fun Success() = FragmentScreen {

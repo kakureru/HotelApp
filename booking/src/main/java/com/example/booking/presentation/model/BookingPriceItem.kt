@@ -1,10 +1,7 @@
 package com.example.booking.presentation.model
 
 import com.example.booking.domain.model.Booking
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
-import java.util.Locale
-
+import com.example.core.toFormattedPrice
 
 class BookingPriceItem(
     val tour: String,
@@ -19,9 +16,3 @@ fun Booking.toBookingPriceItem() = BookingPriceItem(
     service = serviceCharge.toFormattedPrice(),
     total = (tourPrice + fuelCharge + serviceCharge).toFormattedPrice(),
 )
-
-private fun Int.toFormattedPrice(): String {
-    val formatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
-    formatSymbols.groupingSeparator = ' '
-    return DecimalFormat("#,###", formatSymbols).format(this)
-}

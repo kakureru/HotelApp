@@ -2,6 +2,7 @@ package com.example.hotelapp.di
 
 import com.example.hotelapp.navigation.BookingNavigationImpl
 import com.example.hotelapp.navigation.HotelNavigationImpl
+import com.example.hotelapp.navigation.PaymentNavigationImpl
 import com.example.hotelapp.navigation.RoomsNavigationImpl
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
@@ -19,6 +20,10 @@ val navigationModule = module {
 
     factory {
         BookingNavigationImpl(router = get())
+    }
+
+    factory {
+        PaymentNavigationImpl(router = get())
     }
 
     single {

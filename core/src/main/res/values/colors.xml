@@ -7,6 +7,7 @@
     <color name="gray">#828796</color>
     <color name="hint">#A9ABB7</color>
     <color name="gray_light">#E8E9EC</color>
+    <color name="gray_lighter">#FBFBFC</color>
     <color name="gold">#FFA800</color>
     <color name="blue">#0D72FF</color>
     <color name="blue_light">#e7f1ff</color>

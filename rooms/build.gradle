@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation project(path: ':core')
+    implementation project(path: ':hotel')
 
     implementation deps.androidx.core
     implementation deps.androidx.appcompat
@@ -41,7 +42,9 @@ dependencies {
     implementation deps.androidx.fragment
     implementation deps.material
 
+    implementation deps.flexbox
+    implementation deps.koin
+
     implementation deps.retrofit.retrofit
     implementation deps.retrofit.gson
-    implementation deps.koin
 }

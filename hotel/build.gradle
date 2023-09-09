@@ -41,6 +41,7 @@ dependencies {
     implementation deps.androidx.fragment
     implementation deps.material
 
+    implementation deps.flexbox
     implementation deps.koin
     implementation deps.retrofit.retrofit
     implementation deps.retrofit.gson

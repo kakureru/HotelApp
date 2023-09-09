@@ -9,7 +9,7 @@ class BookingRepositoryImpl(
     private val bookingApi: BookingApi,
 ) : BookingRepository {
 
-    override suspend fun getBooking(): Booking = bookingApi.getBooking().toDomain()
+    override suspend fun getBooking(roomId: Int): Booking = bookingApi.getBooking().toDomain()
 
     private fun BookingResponse.toDomain() = Booking(
         id = id ?: 0,

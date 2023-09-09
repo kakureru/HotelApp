@@ -6,7 +6,7 @@ import com.github.terrakok.cicerone.Router
 class HotelNavigationImpl(
     private val router: Router,
 ) : HotelNavigation {
-    override fun navigateToRooms() {
-        router.navigateTo(Screens.Rooms())
+    override fun navigateToRooms(hotelId: Int) {
+        router.navigateTo(Screens.Rooms(hotelId))
     }
 }
