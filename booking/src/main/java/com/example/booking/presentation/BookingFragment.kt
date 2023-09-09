@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.booking.databinding.FragmentBookingBinding
@@ -74,21 +75,27 @@ class BookingFragment : Fragment() {
             toolbar.btnBack.setOnClickListener { vm.onBackClick() }
             actionButtonLayout.btnAction.setOnClickListener { vm.onPurchaseClick() }
         }
-        vm.uiState.render()
+        vm.effects.handleEffect()
+        vm.uiState.renderState()
     }
 
-    private fun BookingUiState.render() {
-        adapter.submitList(data)
-        binding.actionButtonLayout.btnAction.text = context?.resources?.getString(R.string.pay_price, totalCharge)
+    private fun Flow<BookingUiState>.renderState() = collectFlowSafely {
+        collect { state ->
+            adapter.submitList(state.data)
+            binding.actionButtonLayout.btnAction.text = context?.resources?.getString(R.string.pay_price, state.totalCharge)
+        }
     }
 
-    private fun Flow<BookingUiState>.render() {
-        collectFlowSafely {
-            collect {
-                it.render()
+    private fun Flow<BookingEffect>.handleEffect() = collectFlowSafely {
+        collect { effect ->
+            when (effect) {
+                is BookingEffect.Error -> {
+                    Toast.makeText(context, resources.getString(effect.msgRes), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
+
 
     companion object {
         private const val ARG_ROOM_ID = "ARG_ROOM_ID"

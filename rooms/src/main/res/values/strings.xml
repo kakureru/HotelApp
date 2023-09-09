@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_failed_to_load_rooms_data">Не удалось загрузить данные о номерах</string>
+</resources>

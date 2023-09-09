@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.core.R
@@ -37,18 +38,27 @@ class RoomsFragment : Fragment() {
             listRooms.adapter = roomAdapter
             listRooms.addItemDecoration(VerticalMarginItemDecoration(resources.getDimensionPixelSize(R.dimen.margin_s)))
         }
-        vm.uiState.render()
+        vm.effects.handleEffect()
+        vm.uiState.renderState()
     }
 
-    private fun RoomsUiState.render() {
-        binding.toolbar.title.text = hotelName
-        roomAdapter.submitList(rooms)
-    }
-
-    private fun Flow<RoomsUiState>.render() {
+    private fun Flow<RoomsUiState>.renderState() {
         collectFlowSafely {
-            collect {
-                it.render()
+            collect { state ->
+                binding.toolbar.title.text = state.hotelName
+                roomAdapter.submitList(state.rooms)
+            }
+        }
+    }
+
+    private fun Flow<RoomsEffect>.handleEffect() {
+        collectFlowSafely {
+            collect { effect ->
+                when (effect) {
+                    is RoomsEffect.Error -> {
+                        Toast.makeText(context, resources.getString(effect.msgRes), Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

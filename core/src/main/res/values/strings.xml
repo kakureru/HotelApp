@@ -8,6 +8,7 @@
     <string name="phone_mask_hint">**********</string>
     <string name="phone_mask">+7(###)###-##-##</string>
 
+
     <string name="msg_customer_info">Эти данные никому не передаются. После оплаты мы вышли чек на указанный вами номер и почту</string>
     
     <string name="action_choose_room">Выбрать номер</string>

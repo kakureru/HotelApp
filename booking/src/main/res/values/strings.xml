@@ -1,0 +1,3 @@
+<resources>
+    <string name="error_failed_to_load_booking_data">Не удалось загрузить данные о бронировании</string>
+</resources>

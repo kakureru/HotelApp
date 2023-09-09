@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.core.collectFlowSafely
@@ -15,7 +16,6 @@ import com.example.hotel.R
 import com.example.hotel.databinding.FragmentHotelBinding
 import com.example.hotel.presentation.feature.FeatureAdapter
 import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexboxItemDecoration
 import com.google.android.flexbox.FlexboxLayoutManager
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,25 +54,34 @@ class HotelFragment : Fragment() {
                 setOnClickListener { vm.onChooseRoomClick() }
             }
         }
-        vm.uiState.render()
+        vm.effects.handleEffect()
+        vm.uiState.renderState()
     }
 
-    private fun HotelUiState.render() {
-        with(binding) {
-            photoAdapter.submitList(imageUrls)
-            info.ratingLayout.rating.text = rating
-            info.name.text = name
-            info.address.text = address
-            peculiarityAdapter.submitList(peculiarities)
-            tvDescription.text = description
-            featureAdapter.submitList(features)
+    private fun Flow<HotelUiState>.renderState() {
+        collectFlowSafely {
+            collect { state ->
+                with(binding) {
+                    photoAdapter.submitList(state.imageUrls)
+                    info.ratingLayout.rating.text = state.rating
+                    info.name.text = state.name
+                    info.address.text = state.address
+                    peculiarityAdapter.submitList(state.peculiarities)
+                    tvDescription.text = state.description
+                    featureAdapter.submitList(state.features)
+                }
+            }
         }
     }
 
-    private fun Flow<HotelUiState>.render() {
+    private fun Flow<HotelEffect>.handleEffect() {
         collectFlowSafely {
-            collect {
-                it.render()
+            collect { effect ->
+                when (effect) {
+                    is HotelEffect.Error -> {
+                        Toast.makeText(context, resources.getString(effect.msgRes), Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

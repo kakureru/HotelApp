@@ -16,6 +16,10 @@ data class HotelUiState(
     val features: List<FeatureItem> = emptyList(),
 )
 
+sealed class HotelEffect {
+    class Error(val msgRes: Int) : HotelEffect()
+}
+
 fun Hotel.toUiState(features: List<FeatureItem>) = HotelUiState(
     imageUrls = imageUrls,
     rating = "$rating $ratingName",
