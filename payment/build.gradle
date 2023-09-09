@@ -27,6 +27,9 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -38,6 +41,5 @@ dependencies {
     implementation deps.androidx.fragment
     implementation deps.material
 
-    implementation deps.cicerone
-    implementation deps.retrofit.retrofit
+    implementation deps.koin
 }

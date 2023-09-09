@@ -6,6 +6,7 @@ import com.example.hotel.data.HotelRepositoryImpl
 import com.example.hotel.presentation.HotelViewModel
 import com.example.hotelapp.navigation.BookingNavigationImpl
 import com.example.hotelapp.navigation.HotelNavigationImpl
+import com.example.hotelapp.navigation.PaymentNavigationImpl
 import com.example.hotelapp.navigation.RoomsNavigationImpl
 import com.example.payment.presentation.PaymentViewModel
 import com.example.rooms.data.repository.RoomsRepositoryImpl
@@ -40,6 +41,8 @@ val appModule = module {
     }
 
     viewModel {
-        PaymentViewModel(router = get())
+        PaymentViewModel(
+            paymentNavigation = get<PaymentNavigationImpl>()
+        )
     }
 }

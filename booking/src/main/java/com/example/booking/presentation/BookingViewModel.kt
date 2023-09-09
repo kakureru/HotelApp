@@ -157,10 +157,10 @@ class BookingViewModel(
     fun onAddressClick() = Unit
 
     fun onPurchaseClick() {
-        checkInputs()
+        if (checkInputs()) bookingNavigation.navigateToPayment()
     }
 
-    private fun checkInputs() {
+    private fun checkInputs(): Boolean {
         touristsInnerState.update { tourists ->
             tourists.map {
                 it.copy(
@@ -181,6 +181,7 @@ class BookingViewModel(
         }
         refreshTourists()
         refreshCustomer()
+        return true
     }
 
     private fun String.capitalize() = this.replaceFirstChar { it.uppercase() }
