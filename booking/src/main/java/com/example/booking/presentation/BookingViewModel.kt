@@ -186,7 +186,8 @@ class BookingViewModel(
     fun onAddressClick() = Unit
 
     fun onPurchaseClick() {
-        if (checkInputs()) bookingNavigation.navigateToPayment()
+//        if (checkInputs()) bookingNavigation.navigateToPayment()
+        checkInputs()
     }
 
     private fun checkInputs(): Boolean {
@@ -205,7 +206,7 @@ class BookingViewModel(
         customerInnerState.update {
             it.copy(
                 phone = it.phone.checkBlank(),
-                mail = it.mail.checkBlank(),
+                mail = it.mail.checkMail(),
             )
         }
         refreshTourists()
@@ -216,7 +217,12 @@ class BookingViewModel(
     private fun String.capitalize() = this.replaceFirstChar { it.uppercase() }
 
     private fun refreshTourists() { tourists.value = touristsInnerState.value }
+
     private fun refreshCustomer() { customer.value = customerInnerState.value }
 
-    private fun InputState.checkBlank(): InputState = if (text.isBlank()) this.error() else this.normal()
+    private fun InputState.checkBlank(): InputState = if (text.isBlank()) error() else normal()
+
+    private fun InputState.checkMail(): InputState = if (text.isValidMail()) normal() else error()
+
+    private fun String.isValidMail() = matches(Regex("^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}\$", RegexOption.IGNORE_CASE))
 }

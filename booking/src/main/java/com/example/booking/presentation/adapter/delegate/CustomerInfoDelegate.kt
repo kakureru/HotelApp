@@ -3,16 +3,24 @@ package com.example.booking.presentation.adapter.delegate
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core.R
 import com.example.booking.databinding.ItemCustomerInfoBinding
 import com.example.booking.presentation.adapter.item.CustomerInfoDelegateItem
 import com.example.booking.presentation.model.CustomerInfoItem
 import com.example.booking.presentation.model.bindState
+import com.example.core.R
 import com.example.core.recyclerview.delegate.AdapterDelegate
 import com.example.core.recyclerview.delegate.DelegateItem
 
-class CustomerInfoDelegate : AdapterDelegate {
+class CustomerInfoDelegate(
+    private val callback: CustomerInfoDelegate.Callback,
+) : AdapterDelegate {
+
+    interface Callback {
+        fun onPhoneTextChanged(text: String)
+        fun onMailTextChanged(text: String)
+    }
 
     inner class CustomerInfoViewHolder(
         private val context: Context,
@@ -26,6 +34,9 @@ class CustomerInfoDelegate : AdapterDelegate {
                 }
                 etPhone.bindState(item.phone)
                 etMail.bindState(item.mail)
+
+                etPhone.addTextChangedListener { callback.onPhoneTextChanged("${etPhone.text}") }
+                etMail.addTextChangedListener { callback.onMailTextChanged("${etMail.text}") }
             }
         }
     }

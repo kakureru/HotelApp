@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null)
-            router.replaceScreen(Screens.Hotel())
+            router.replaceScreen(Screens.Booking(1))
     }
 
     override fun onResumeFragments() {

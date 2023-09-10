@@ -42,9 +42,14 @@ class BookingFragment : Fragment() {
         override fun onPassportExpirationTextChanged(ordinal: Int, text: String) = vm.onPassportExpirationTextChanged(ordinal, text)
     }
 
+    private val customerInfoCallback = object : CustomerInfoDelegate.Callback {
+        override fun onPhoneTextChanged(text: String) = vm.onPhoneTextChanged(text)
+        override fun onMailTextChanged(text: String) = vm.onMailTextChanged(text)
+    }
+
     private val hotelInfoDelegate = HotelInfoDelegate { vm.onAddressClick() }
     private val bookingDataDelegate = BookingDataDelegate()
-    private val customerInfoDelegate = CustomerInfoDelegate()
+    private val customerInfoDelegate = CustomerInfoDelegate(customerInfoCallback)
     private val touristExpandedDelegate = TouristExpandedDelegate(touristExpandedCallback)
     private val touristCollapsedDelegate = TouristCollapsedDelegate { ordinal -> vm.onCollapseClick(ordinal) }
     private val touristNewDelegate = TouristNewDelegate { vm.onAddTouristClick() }
