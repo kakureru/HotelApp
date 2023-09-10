@@ -71,6 +71,8 @@ class HotelFragment : Fragment() {
                     info.ratingLayout.rating.text = state.rating
                     info.name.text = state.name
                     info.address.text = state.address
+                    price.text = resources.getString(R.string.minimal_price, state.minimalPrice)
+                    pricePer.text = state.priceForIt
                     peculiarityAdapter.submitList(state.peculiarities)
                     tvDescription.text = state.description
                     featureAdapter.submitList(state.features)

@@ -90,12 +90,14 @@
 
         <TextView
             android:id="@+id/price_per"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_s"
             android:layout_marginTop="8dp"
             app:layout_constraintBaseline_toBaselineOf="@id/price"
             app:layout_constraintStart_toEndOf="@id/price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             tools:text="за 7 ночей с перелётом" />
 
         <com.google.android.material.button.MaterialButton
