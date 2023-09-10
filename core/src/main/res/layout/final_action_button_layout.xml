@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textAllCaps="false"
         app:cornerRadius="12dp"
-        android:paddingVertical="12dp"
+        android:paddingVertical="@dimen/margin_m"
         tools:text="Оплатить 198 036 ₽" />
 </com.google.android.material.card.MaterialCardView>

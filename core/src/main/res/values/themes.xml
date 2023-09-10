@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.HotelApp" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
          <item name="colorPrimary">@color/blue</item>
+        <item name="android:fontFamily">@font/selfprodisplay</item>
+        <item name="fontFamily">@font/selfprodisplay</item>
     </style>
 
     <style name="Theme.HotelApp" parent="Base.Theme.HotelApp" />

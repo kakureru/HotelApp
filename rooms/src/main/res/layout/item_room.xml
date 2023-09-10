@@ -105,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_m"
-            android:paddingVertical="12dp"
+            android:paddingVertical="@dimen/margin_m"
             android:text="@string/action_choose_room"
             android:textAllCaps="false"
             app:cornerRadius="12dp"

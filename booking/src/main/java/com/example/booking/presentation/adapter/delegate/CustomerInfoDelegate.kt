@@ -1,6 +1,6 @@
 package com.example.booking.presentation.adapter.delegate
 
-import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
@@ -13,6 +13,7 @@ import com.example.core.R
 import com.example.core.recyclerview.delegate.AdapterDelegate
 import com.example.core.recyclerview.delegate.DelegateItem
 
+
 class CustomerInfoDelegate(
     private val callback: CustomerInfoDelegate.Callback,
 ) : AdapterDelegate {
@@ -23,29 +24,34 @@ class CustomerInfoDelegate(
     }
 
     inner class CustomerInfoViewHolder(
-        private val context: Context,
         private val binding: ItemCustomerInfoBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            with(binding) {
+                etPhone.apply {
+                    setOnFocusChangeListener { _, _ ->
+                        setHint(R.string.phone_mask_hint)
+                        mask = context.getString(R.string.phone_mask)
+                        typeface = Typeface.MONOSPACE
+                        setShouldKeepText(true)
+                    }
+                }
+                etPhone.addTextChangedListener { callback.onPhoneTextChanged(etPhone.rawText) }
+                etMail.addTextChangedListener { callback.onMailTextChanged("${etMail.text}") }
+            }
+        }
+
         fun bind(item: CustomerInfoItem) {
             with(binding) {
-                etPhone.setOnFocusChangeListener { v, hasFocus ->
-                    etPhone.setHint(R.string.phone_mask_hint)
-//                    etPhone.mask = context.getString(R.string.phone_mask)
-                }
                 etPhone.bindState(item.phone)
                 etMail.bindState(item.mail)
-
-                etPhone.addTextChangedListener { callback.onPhoneTextChanged("${etPhone.text}") }
-                etMail.addTextChangedListener { callback.onMailTextChanged("${etMail.text}") }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
-        CustomerInfoViewHolder(
-            parent.context,
-            ItemCustomerInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+        CustomerInfoViewHolder(ItemCustomerInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: DelegateItem, position: Int) {
         (holder as CustomerInfoViewHolder).bind(item.content() as CustomerInfoItem)

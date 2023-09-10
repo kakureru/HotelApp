@@ -15,13 +15,12 @@ import com.example.booking.presentation.adapter.item.TouristNewDelegateItem
 import com.example.booking.presentation.model.CustomerInfoItem
 import com.example.booking.presentation.model.InputState
 import com.example.booking.presentation.model.TouristItem
-import com.example.booking.presentation.model.error
-import com.example.booking.presentation.model.normal
 import com.example.booking.presentation.model.toBookingDataItem
 import com.example.booking.presentation.model.toBookingPriceItem
 import com.example.booking.presentation.model.toHotelInfoItem
 import com.example.booking.presentation.navigation.BookingNavigation
 import com.example.core.runCatchingNonCancellation
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +32,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlin.reflect.full.memberProperties
 import com.example.core.RussianFirstHundredOrdinalSpelling as Ros
 
 class BookingViewModel(
@@ -91,13 +92,13 @@ class BookingViewModel(
 
     fun onPhoneTextChanged(text: String) {
         customerInnerState.update {
-            it.copy(phone = InputState.Normal(text))
+            it.copy(phone = InputState.Accepted(text))
         }
     }
 
     fun onMailTextChanged(text: String) {
         customerInnerState.update {
-            it.copy(mail = InputState.Normal(text))
+            it.copy(mail = InputState.Accepted(text))
         }
     }
 
@@ -114,7 +115,7 @@ class BookingViewModel(
     fun onNameTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(name = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(name = text.checkBlank())
                 else tourist
             }
         }
@@ -123,7 +124,7 @@ class BookingViewModel(
     fun onSecondNameTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(secondName = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(secondName = text.checkBlank())
                 else tourist
             }
         }
@@ -132,7 +133,7 @@ class BookingViewModel(
     fun onBirthdayDateTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(birthdayDate = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(birthdayDate = text.checkBlank())
                 else tourist
             }
         }
@@ -141,7 +142,7 @@ class BookingViewModel(
     fun onCitizenshipTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(citizenship = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(citizenship = text.checkBlank())
                 else tourist
             }
         }
@@ -150,7 +151,7 @@ class BookingViewModel(
     fun onPassportNumberTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(passportNumber = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(passportNumber = text.checkBlank())
                 else tourist
             }
         }
@@ -159,15 +160,17 @@ class BookingViewModel(
     fun onPassportExpirationTextChanged(ordinal: Int, text: String) {
         touristsInnerState.update { tourists ->
             tourists.map {  tourist ->
-                if (tourist.ordinal == ordinal) tourist.copy(passportExpirationDate = InputState.Normal(text))
+                if (tourist.ordinal == ordinal) tourist.copy(passportExpirationDate = text.checkBlank())
                 else tourist
             }
         }
     }
 
-    fun onAddTouristClick() {
-        touristsInnerState.update { it.addNewTourist() }
-        refreshTourists()
+    fun onAddTouristClick() = viewModelScope.launch(Dispatchers.Default) {
+        if (checkTourists()) {
+            touristsInnerState.update { it.addNewTourist() }
+            refreshTourists()
+        }
     }
 
     private fun List<TouristItem>.addNewTourist(): List<TouristItem> = buildList {
@@ -185,32 +188,46 @@ class BookingViewModel(
 
     fun onAddressClick() = Unit
 
-    fun onPurchaseClick() {
-//        if (checkInputs()) bookingNavigation.navigateToPayment()
-        checkInputs()
+    fun onPurchaseClick() = viewModelScope.launch(Dispatchers.Default) {
+        val customerCheckResult = checkCustomer()
+        val touristsCheckResult = checkTourists()
+        if (touristsCheckResult && customerCheckResult)
+            bookingNavigation.navigateToPayment()
     }
 
-    private fun checkInputs(): Boolean {
+    private fun checkCustomer(): Boolean {
+        customerInnerState.update {
+            it.copy(
+                phone = it.phone.text.checkBlank(),
+                mail = it.mail.text.checkMail(),
+            )
+        }
+        refreshCustomer()
+        for (prop in CustomerInfoItem::class.memberProperties)
+            if (prop.get(customerInnerState.value) is InputState.Rejected)
+                return false
+        return true
+    }
+
+    private fun checkTourists(): Boolean {
         touristsInnerState.update { tourists ->
             tourists.map {
                 it.copy(
-                    name = it.name.checkBlank(),
-                    secondName = it.secondName.checkBlank(),
-                    birthdayDate = it.birthdayDate.checkBlank(),
-                    citizenship = it.citizenship.checkBlank(),
-                    passportNumber = it.passportNumber.checkBlank(),
-                    passportExpirationDate = it.passportExpirationDate.checkBlank(),
+                    name = it.name.text.checkBlank(),
+                    secondName = it.secondName.text.checkBlank(),
+                    birthdayDate = it.birthdayDate.text.checkBlank(),
+                    citizenship = it.citizenship.text.checkBlank(),
+                    passportNumber = it.passportNumber.text.checkBlank(),
+                    passportExpirationDate = it.passportExpirationDate.text.checkBlank(),
                 )
             }
         }
-        customerInnerState.update {
-            it.copy(
-                phone = it.phone.checkBlank(),
-                mail = it.mail.checkMail(),
-            )
-        }
         refreshTourists()
-        refreshCustomer()
+        touristsInnerState.value.forEach { touristStatus ->
+            for (prop in TouristItem::class.memberProperties)
+                if (prop.get(touristStatus) is InputState.Rejected)
+                    return false
+        }
         return true
     }
 
@@ -220,9 +237,9 @@ class BookingViewModel(
 
     private fun refreshCustomer() { customer.value = customerInnerState.value }
 
-    private fun InputState.checkBlank(): InputState = if (text.isBlank()) error() else normal()
+    private fun String.checkBlank(): InputState = if (isBlank()) InputState.Rejected(this) else InputState.Accepted(this)
 
-    private fun InputState.checkMail(): InputState = if (text.isValidMail()) normal() else error()
+    private fun String.checkMail(): InputState = if (isValidMail()) InputState.Accepted(this) else InputState.Rejected(this)
 
     private fun String.isValidMail() = matches(Regex("^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}\$", RegexOption.IGNORE_CASE))
 }

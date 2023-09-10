@@ -35,6 +35,8 @@ android {
 dependencies {
     implementation project(path: ':core')
 
+    implementation deps.reflect
+
     implementation deps.androidx.core
     implementation deps.androidx.appcompat
     implementation deps.androidx.constraintlayout
