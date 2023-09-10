@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.core.collectFlowSafely
 import com.example.core.recyclerview.PeculiarityAdapter
 import com.example.core.recyclerview.PhotoAdapter
 import com.example.core.recyclerview.decorator.CirclePagerIndicatorDecoration
+import com.example.core.recyclerview.decorator.DividerItemDecorator
 import com.example.core.recyclerview.decorator.HorizontalMarginItemDecoration
 import com.example.hotel.R
 import com.example.hotel.databinding.FragmentHotelBinding
@@ -38,7 +40,10 @@ class HotelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            listFeatures.adapter = featureAdapter
+            listFeatures.apply {
+                addItemDecoration(DividerItemDecorator(ResourcesCompat.getDrawable(resources, R.drawable.feature_divider, null)))
+                adapter = featureAdapter
+            }
             listPeculiarities.apply {
                 adapter = peculiarityAdapter
                 layoutManager = FlexboxLayoutManager(context).apply { FlexDirection.ROW }
